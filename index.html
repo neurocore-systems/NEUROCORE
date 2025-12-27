@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCore Systems | Arquitectura Autónoma</title>
+    <meta name="description" content="Unidad de arquitectura de sistemas. Transición de operaciones manuales a infraestructuras de inteligencia sintética.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        sys: {
+                            black: '#020202',      // Negro absoluto
+                            panel: '#0A0A0A',      // Superficie técnica
+                            border: '#1F1F1F',     // Bordes sutiles
+                            text: '#666666',       // Texto secundario (apagado)
+                            white: '#E1E1E1',      // Texto primario (no blanco puro)
+                            accent: '#00DC82',     // Neuro Green (Solo para estado: ONLINE/SUCCESS)
+                            alert: '#CF222E',      // Error industrial
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-subtle': "linear-gradient(to right, #111 1px, transparent 1px), linear-gradient(to bottom, #111 1px, transparent 1px)",
+                    },
+                    animation: {
+                        'scanline': 'scan 8s linear infinite',
+                    },
+                    keyframes: {
+                        scan: {
+                            '0%': { backgroundPosition: '0% 0%' },
+                            '100%': { backgroundPosition: '0% 100%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #020202; color: #E1E1E1; -webkit-font-smoothing: antialiased; }
+        
+        /* Efecto de Scanline sutil para dar sensación de monitor CRT moderno */
+        .scan-overlay {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #020202; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Utilidad para texto técnico */
+        .tech-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: #666; font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="relative overflow-x-hidden selection:bg-sys-accent selection:text-sys-black">
+
+    <div class="fixed inset-0 z-[-1] bg-grid-subtle bg-[length:40px_40px] opacity-40 pointer-events-none"></div>
+    <div class="fixed inset-0 z-[-1] scan-overlay opacity-20 pointer-events-none"></div>
+
+    <nav class="fixed top-0 w-full z-40 border-b border-sys-border bg-sys-black/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 h-12 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="flex gap-1">
+                    <div class="w-1 h-3 bg-sys-accent"></div>
+                    <div class="w-1 h-3 bg-sys-accent/50"></div>
+                </div>
+                <span class="font-mono font-bold tracking-tight text-xs text-sys-white uppercase">NeuroCore Systems<span class="text-sys-text">_INTL</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 tech-label">
+                <span>Sys_Load: 12%</span>
+                <span>Uptime: 99.99%</span>
+                <span class="text-sys-accent flex items-center gap-2">● Systems Operational</span>
+            </div>
+
+            <button onclick="openCheckout()" class="tech-label border border-sys-border px-3 py-1 hover:border-sys-white hover:text-white transition-colors">
+                [Deploy_Unit]
+            </button>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-24 px-6">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div class="lg:col-span-8">
+                <div class="inline-block border border-sys-border bg-sys-panel px-3 py-1 mb-6">
+                    <span class="tech-label text-sys-accent">>> Arquitectura de Sistemas v3.0</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-medium text-sys-white tracking-tight leading-[1] mb-8">
+                    Tu negocio no necesita más personal.<br />
+                    <span class="text-sys-text">Necesita mejor código.</span>
+                </h1>
+                
+                <p class="text-base text-sys-text max-w-xl leading-relaxed mb-10 font-light border-l border-sys-border pl-6">
+                    NeuroCore Systems no es una agencia. Somos una unidad de ingeniería que reemplaza la fricción humana con flujos de trabajo de inteligencia sintética. 
+                    <br><br>
+                    <span class="text-sys-white font-mono text-xs">Diagnóstico > Inyección de Lógica > Resultado Líquido.</span>
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button onclick="openCheckout()" class="px-8 py-4 bg-sys-white text-sys-black font-mono font-bold text-xs hover:bg-sys-accent transition-colors uppercase tracking-widest">
+                        Iniciar Transición de Sistemas
+                    </button>
+                    <a href="#stack" class="px-8 py-4 border border-sys-border text-sys-text font-mono text-xs hover:text-sys-white hover:border-sys-white transition-colors uppercase tracking-widest text-center">
+                        Ver Arquitectura
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 lg:mb-4">
+                <div class="bg-sys-panel border border-sys-border p-6">
+                    <div class="tech-label mb-4 border-b border-sys-border pb-2">Rendimiento Operativo</div>
+                    <div class="flex justify-between items-end mb-2">
+                        <span class="text-3xl text-sys-white font-mono">24/7</span>
+                        <span class="text-xs text-sys-accent font-mono">Activo</span>
+                    </div>
+                    <p class="text-xs text-sys-text">
+                        A diferencia del capital humano, el SaaS Operativo no duerme, no enferma y no comete errores de sintaxis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="stack" class="py-24 border-y border-sys-border bg-sys-panel/30 reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <div class="space-y-12">
+                    <div>
+                        <h2 class="tech-label text-sys-accent mb-4">01. Capa de Ingesta</h2>
+                        <h3 class="text-xl text-sys-white mb-3">Captura de Datos sin Silos</h3>
+                        <p class="text-sm text-sys-text leading-relaxed">
+                            Conectamos directamente con las fuentes de verdad (Stripe, CRMs, Formularios). Eliminamos el "data entry" manual. La información entra limpia y estructurada.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="tech-label text-sys-accent mb-4">02. El Cerebro (The Brain)</h2>
+                        <h3 class="text-xl text-sys-white mb-3">Modelos de Lenguaje Ajustados</h3>
+                        <p class="text-sm text-sys-text leading-relaxed">
+                            No es GPT genérico. Son LLMs con parámetros sectoriales. Entienden tu negocio, toman decisiones lógicas y filtran el ruido antes de ejecutar.
+                        </p>
+                    </div>
+                    <div>
+                        <h2 class="tech-label text-sys-accent mb-4">03. Ejecución Síncrona</h2>
+                        <h3 class="text-xl text-sys-white mb-3">Salida de Alta Fidelidad</h3>
+                        <p class="text-sm text-sys-text leading-relaxed">
+                            El sistema genera el entregable final: código HTML pro, informes financieros o emails de venta. Todo auditado por un protocolo de QA automatizado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative pt-8 lg:pt-0">
+                    <div class="absolute -inset-0.5 bg-gradient-to-b from-sys-accent/20 to-transparent opacity-20 blur-lg"></div>
+                    <div class="relative bg-sys-black border border-sys-border h-full min-h-[400px] flex flex-col font-mono text-[10px] md:text-xs shadow-2xl">
+                        
+                        <div class="flex justify-between items-center px-4 py-2 bg-sys-panel border-b border-sys-border">
+                            <span class="text-sys-text">live_operation_viewer.sh</span>
+                            <div class="flex gap-2">
+                                <span class="w-2 h-2 rounded-full bg-sys-border"></span>
+                                <span class="w-2 h-2 rounded-full bg-sys-border"></span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 space-y-4 overflow-hidden">
+                            <div class="flex gap-3">
+                                <span class="text-sys-text w-12 text-right">10:04:01</span>
+                                <span class="text-sys-accent">>> INGEST_LAYER:</span>
+                                <span class="text-sys-white">New Lead Detected (Source: API_v4)</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-sys-text w-12 text-right">10:04:02</span>
+                                <span class="text-sys-text">>> PROCESSING:</span>
+                                <span class="text-sys-text">Analyzing Intent... [Score: 94/100]</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-sys-text w-12 text-right">10:04:05</span>
+                                <span class="text-sys-accent">>> BRAIN_CORE:</span>
+                                <span class="text-sys-white">Decision Made: "High Value Prospect"</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-sys-text w-12 text-right">10:04:06</span>
+                                <span class="text-sys-text">>> GENERATING:</span>
+                                <span class="text-sys-text">Building Custom Proposal PDF...</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <span class="text-sys-text w-12 text-right">10:04:08</span>
+                                <span class="text-sys-accent">>> EXECUTION:</span>
+                                <span class="text-sys-white">Email Sent via SMTP_Secure.</span>
+                            </div>
+                             <div class="flex gap-3 mt-8 border-t border-sys-border/30 pt-4">
+                                <span class="text-sys-text w-12 text-right">STATUS</span>
+                                <span class="text-sys-accent animate-pulse">WAITING FOR NEXT EVENT...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 text-center reveal">
+        <div class="max-w-3xl mx-auto border border-sys-border bg-sys-panel p-1">
+            <div class="bg-sys-black p-10 border border-sys-border/50">
+                <div class="tech-label text-sys-text mb-4">Coste de Implementación Único</div>
+                <h2 class="text-4xl text-sys-white font-medium mb-2">950.00 EUR</h2>
+                <p class="text-xs text-sys-text mb-8">Licencia Perpetua. Sin mensualidades. Código en Propiedad.</p>
+                
+                <ul class="text-left max-w-sm mx-auto space-y-3 mb-10 font-mono text-xs text-sys-text">
+                    <li class="flex justify-between border-b border-sys-border pb-1"><span>Core System Architecture</span> <span class="text-sys-white">INCLUIDO</span></li>
+                    <li class="flex justify-between border-b border-sys-border pb-1"><span>3x Agentes Autónomos</span> <span class="text-sys-white">INCLUIDO</span></li>
+                    <li class="flex justify-between border-b border-sys-border pb-1"><span>Dashboard Operativo</span> <span class="text-sys-white">INCLUIDO</span></li>
+                    <li class="flex justify-between border-b border-sys-border pb-1"><span>Manual de Ingeniería</span> <span class="text-sys-white">INCLUIDO</span></li>
+                </ul>
+
+                <button onclick="openCheckout()" class="w-full py-4 bg-sys-accent text-sys-black font-mono font-bold text-sm hover:bg-white transition-colors uppercase tracking-widest">
+                    Proceder al Pago y Despliegue
+                </button>
+                <div class="mt-4 text-[9px] text-sys-text font-mono">
+                    La descarga de la infraestructura comienza automáticamente tras la validación del capital.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-sys-black/90 backdrop-blur-sm" onclick="closeCheckout()"></div>
+        <div class="relative bg-sys-panel w-full max-w-md border border-sys-border shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+            
+            <div class="p-4 border-b border-sys-border flex justify-between items-center bg-sys-black">
+                <span class="tech-label text-white">GATEWAY: STRIPE_SECURE</span>
+                <button onclick="closeCheckout()" class="text-sys-text hover:text-white font-mono text-xs">✕</button>
+            </div>
+            
+            <div class="p-8">
+                <div class="mb-6 flex gap-4 items-start">
+                    <div class="w-8 h-8 bg-sys-border flex items-center justify-center text-sys-text font-mono text-xs">01</div>
+                    <div>
+                        <h4 class="text-sys-white text-sm font-medium">Validación de Capital</h4>
+                        <p class="text-xs text-sys-text mt-1">El sistema requiere confirmación de fondos para iniciar la compilación de su instancia privada.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="TU_LINK_DE_STRIPE" class="flex justify-center items-center w-full py-3 bg-sys-white hover:bg-sys-accent text-sys-black text-xs font-bold font-mono tracking-widest transition-colors uppercase">
+                        Tarjeta de Crédito
+                    </a>
+                    <a href="https://wa.me/34602244570?text=Solicito%20datos%20bancarios%20para%20transferencia%20NeuroCore%20Systems." class="flex justify-center items-center w-full py-3 border border-sys-border text-sys-text hover:text-white hover:border-sys-white text-xs font-mono tracking-widest transition-colors uppercase">
+                        Transferencia Bancaria
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-black p-4 border-t border-sys-border">
+                <div class="font-mono text-[9px] text-sys-text opacity-70">
+                    > Waiting for transaction token...<br>
+                    > Webhook listener: <span class="text-sys-accent">READY</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="exit-modal" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-sys-black/95 backdrop-blur-md"></div>
+        <div class="relative bg-sys-panel border border-sys-alert/40 w-full max-w-lg shadow-[0_0_50px_rgba(207,34,46,0.1)]">
+            <div class="p-1">
+                <div class="bg-sys-black p-8 border border-sys-border relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-sys-alert"></div>
+                    
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-sys-alert" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        <h3 class="font-mono text-sm text-sys-alert font-bold tracking-widest uppercase">Advertencia de Sistema</h3>
+                    </div>
+
+                    <p class="text-sm text-sys-white mb-2 font-medium">Se ha detectado una interrupción en el proceso.</p>
+                    <p class="text-xs text-sys-text mb-8 leading-relaxed">
+                        Abandonar ahora significa mantener la infraestructura manual actual. NeuroCore Systems está listo para desplegarse, pero requiere su validación.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 font-mono text-[10px]">
+                        <button onclick="openCheckout(); document.getElementById('exit-modal').classList.add('hidden')" class="py-3 bg-sys-white text-black font-bold hover:bg-sys-accent transition-colors uppercase">
+                            Continuar Despliegue
+                        </button>
+                        <button onclick="document.getElementById('exit-modal').classList.add('hidden')" class="py-3 border border-sys-border text-sys-text hover:text-white transition-colors uppercase">
+                            Abortar Operación
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-sys-border bg-sys-black py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between text-[10px] font-mono text-sys-text uppercase">
+            <div class="space-y-1">
+                <div class="text-sys-white">NeuroCore Systems © 2026</div>
+                <div>Systems Architecture Unit</div>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-6">
+                <span>Server: EU-WEST-3</span>
+                <span>Latency: 14ms</span>
+                <span>Security: AES-256</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Logic
+        function openCheckout() { document.getElementById('checkout-modal').classList.remove('hidden'); }
+        function closeCheckout() { document.getElementById('checkout-modal').classList.add('hidden'); }
+
+        // Exit Intent Logic (Trigger only once)
+        let exitShown = false;
+        document.addEventListener('mouseleave', (e) => {
+            if (e.clientY < 0 && !exitShown) {
+                document.getElementById('exit-modal').classList.remove('hidden');
+                exitShown = true;
+            }
+        });
+
+        // Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
